@@ -145,17 +145,28 @@ bool GradeBook::calculateGrade(const std::vector<ITestPtr>& allTests, Allocation
 			totalGradeForOptionalAssignment += singleTest->getScore();
 		}
         }
+	double totalGradeWithoutExam = 0;
+	if(assignmentCounter > 0 && allocation)
+	{
+		double totalAssignmentAverage = totalGradeForAssignment / assignmentCounter ; 
+		totalGradeWithoutExam = totalAssignmentAverage + allocation->getOptionalAssignmentAllocation() * optionalAssignmentCounter;
+	}
+
+	totalGrade = totalGradeWithoutExam;
 	if(examCounter > 0)
 	{
-		double totalAverageAssignmentGrade = 0;
-		double totalAverageExamGrade = allocation->getExamAllocation() * (totalGradeForExam / examCounter) ;
-		if(assignmentCounter > 0)
-		{
-			totalAverageAssignmentGrade = allocation->getAssignmentAllocation() * (totalGradeForAssignment / assignmentCounter) ;
-		}
-		double totalOptionalAssignmentGrade = allocation->getOptionalAssignmentAllocation() * optionalAssignmentCounter ;
-		totalGrade = totalAverageExamGrade + totalAverageAssignmentGrade + totalOptionalAssignmentGrade;
+			double totalExamAverage = totalGradeForExam / examCounter ;
+			if(allocation)
+			{
+				totalGrade = (allocation->getExamAllocation() * totalExamAverage + allocation->getAssignmentAllocation() * totalGradeWithoutExam) / 100 ;
+			}
+			else
+			{
+				totalGrade = 0;
+				std::cout << "Error !! Allocation cann not be null !!" << std::endl;
+			}
 	}
+	totalGrade = floorf(totalGrade * 100) / 100;
         return totalGrade;
 }
 
