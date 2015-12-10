@@ -27,11 +27,11 @@ class GradeBook
 
 		~GradeBook();
 
-		bool hasValidGrade(std::string forStudentName, std::string byTeacherName) const;
+		bool hasValidGrade(const std::string& forStudentName, const std::string& byTeacherName) const;
 
-		bool ignoreAllocation(std::string forStudentName) const;
+		bool ignoreAllocation(const std::string& forStudentName) const;
 
-		double getGrade(std::string forStudentName, std::string byTeacherName) const;
+		double getGrade(const std::string& forStudentName, const std::string& byTeacherName) const;
 };
 
 #endif

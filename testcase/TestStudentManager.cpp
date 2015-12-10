@@ -1,4 +1,5 @@
 #include "../src/StudentManager.hpp"
+#include <string>
 #include <cppunit/TestFixture.h>
 #include <cppunit/TestAssert.h>
 #include <cppunit/TestCaller.h>
@@ -36,15 +37,15 @@ protected:
 
   void addStudent()
   {
-	toBeTestedObject->addStudent("Sally");
-	toBeTestedObject->addStudent("Sandeep");
+	toBeTestedObject->addStudent(std::string("Sally"));
+	toBeTestedObject->addStudent(std::string("Sandeep"));
 	CPPUNIT_ASSERT(toBeTestedObject->getStudents().size() == 2);
   }
 
   void removeStudent()
   {
-	toBeTestedObject->addStudent("Sally");
-	toBeTestedObject->removeStudent("Sally");
+	toBeTestedObject->addStudent(std::string("Sally"));
+	toBeTestedObject->removeStudent(std::string("Sally"));
 	CPPUNIT_ASSERT(toBeTestedObject->getStudents().size() == 0);
   }
 };

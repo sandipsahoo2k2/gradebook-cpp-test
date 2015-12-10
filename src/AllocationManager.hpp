@@ -17,13 +17,13 @@ class AllocationManager
 		AllocationManager();
 		~AllocationManager();
 
-		void addAllocation(std::string teacherName, double assignmentAllocation, double examAllocation, double optionalAssignmentAllocation) ;
+		void addAllocation(const std::string& teacherName, double assignmentAllocation, double examAllocation, double optionalAssignmentAllocation) ;
 
-		void removeAllocation(std::string teacherName);
+		void removeAllocation(const std::string& teacherName);
 		
 		std::string toString() const;
 		
-		AllocationPtr getAllocation(std::string tecaherName) const;
+		AllocationPtr getAllocation(const std::string& tecaherName) const;
 		
 		const std::map<std::string, AllocationPtr>& getAllocations() const
 		{

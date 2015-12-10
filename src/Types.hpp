@@ -1,6 +1,7 @@
 #ifndef _TYPES_H
 #define _TYPES_H
 
+#include <memory>
 #include <string>
 class Student;
 class Allocation;

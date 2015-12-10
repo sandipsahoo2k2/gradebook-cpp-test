@@ -9,13 +9,13 @@ AllocationManager::~AllocationManager()
 {
 }
 
-void AllocationManager::addAllocation(std::string teacherName, double assignmentAllocation, double examAllocation, double optionalAssignmentAllocation)
+void AllocationManager::addAllocation(const std::string& teacherName, double assignmentAllocation, double examAllocation, double optionalAssignmentAllocation)
 {
 	AllocationPtr allocation(new Allocation(assignmentAllocation, examAllocation, optionalAssignmentAllocation));
 	allocations[teacherName] = allocation;
 }
 
-void AllocationManager::removeAllocation(std::string teacherName)
+void AllocationManager::removeAllocation(const std::string& teacherName)
 {
 	allocations.erase(teacherName);	
 }
@@ -31,7 +31,7 @@ std::string AllocationManager::toString() const
 	return std::string(ss.str());
 }
 
-AllocationPtr AllocationManager::getAllocation(std::string tecaherName) const
+AllocationPtr AllocationManager::getAllocation(const std::string& tecaherName) const
 {
 	AllocationPtr allocation = NULL ;
 	std::map<std::string, AllocationPtr>::const_iterator itr = allocations.find(tecaherName);

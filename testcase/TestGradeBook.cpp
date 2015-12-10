@@ -1,4 +1,6 @@
 #include "../src/GradeBook.hpp"
+#include <memory>
+#include <cppunit/TextTestRunner.h>
 #include <cppunit/TestFixture.h>
 #include <cppunit/TestAssert.h>
 #include <cppunit/TestCaller.h>

@@ -1,12 +1,12 @@
 CPP_DIR = ../src
-TEST_DIR = ../../cppunit-1.12.1/include
+TEST_DIR = /usr/local/include
 BIN_DIR = ../obj
 
 TestBinaries : TestStudentManager.o TestStudentGradesManager.o TestAllocationManager.o TestGradeBook.o
-	g++ -o TestStudentManager.out TestStudentManager.o $(BIN_DIR)/Student.o $(BIN_DIR)/StudentManager.o /usr/local/lib/libcppunit.a
-	g++ -o TestStudentGradesManager.out TestStudentGradesManager.o $(BIN_DIR)/StudentManager.o $(BIN_DIR)/Student.o $(BIN_DIR)/AbstractGrade.o $(BIN_DIR)/Exam.o $(BIN_DIR)/Assignment.o $(BIN_DIR)/OptionalAssignment.o $(BIN_DIR)/StudentGradesManager.o /usr/local/lib/libcppunit.a
-	g++ -o TestAllocationManager.out TestAllocationManager.o $(BIN_DIR)/AllocationManager.o $(BIN_DIR)/Allocation.o /usr/local/lib/libcppunit.a
-	g++ -o TestGradeBook.out TestGradeBook.o $(BIN_DIR)/GradeBook.o $(BIN_DIR)/AllocationManager.o $(BIN_DIR)/Allocation.o $(BIN_DIR)/StudentManager.o $(BIN_DIR)/Student.o $(BIN_DIR)/StudentGradesManager.o $(BIN_DIR)/AbstractGrade.o $(BIN_DIR)/Exam.o $(BIN_DIR)/Assignment.o $(BIN_DIR)/OptionalAssignment.o /usr/local/lib/libcppunit.a
+	g++ -o TestStudentManager.out TestStudentManager.o $(BIN_DIR)/Student.o $(BIN_DIR)/StudentManager.o -lcppunit
+	g++ -o TestStudentGradesManager.out TestStudentGradesManager.o $(BIN_DIR)/StudentManager.o $(BIN_DIR)/Student.o $(BIN_DIR)/AbstractGrade.o $(BIN_DIR)/Exam.o $(BIN_DIR)/Assignment.o $(BIN_DIR)/OptionalAssignment.o $(BIN_DIR)/StudentGradesManager.o -lcppunit
+	g++ -o TestAllocationManager.out TestAllocationManager.o $(BIN_DIR)/AllocationManager.o $(BIN_DIR)/Allocation.o -lcppunit
+	g++ -o TestGradeBook.out TestGradeBook.o $(BIN_DIR)/GradeBook.o $(BIN_DIR)/AllocationManager.o $(BIN_DIR)/Allocation.o $(BIN_DIR)/StudentManager.o $(BIN_DIR)/Student.o $(BIN_DIR)/StudentGradesManager.o $(BIN_DIR)/AbstractGrade.o $(BIN_DIR)/Exam.o $(BIN_DIR)/Assignment.o $(BIN_DIR)/OptionalAssignment.o -lcppunit
 	mv *.o obj/
 	mv *.out bin/
 

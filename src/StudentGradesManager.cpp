@@ -43,7 +43,7 @@ IGradePtr StudentGradesManager::create(EGradeType gradeType, double score)
 	return NULL;
 }
 
-bool StudentGradesManager::addGradeScore(std::string studentName, EGradeType gradeType, double score)
+bool StudentGradesManager::addGradeScore(const std::string& studentName, EGradeType gradeType, double score)
 {
 	bool success = false;
 	StudentPtr student =  studentManager.getStudent(studentName);
@@ -73,27 +73,29 @@ bool StudentGradesManager::addGradeScore(std::string studentName, EGradeType gra
 	return success;
 }
 
-void StudentGradesManager::removeGrades(std::string studentName)
+void StudentGradesManager::removeGrades(const std::string& studentName)
 {
 	studentGrades.erase(studentName);
 }
 
-void StudentGradesManager::printString()
+const std::string StudentGradesManager::toString() const
 {
-	for(std::map<std::string, std::vector<IGradePtr> >::iterator itr = studentGrades.begin(); itr != studentGrades.end(); ++itr)
+	std::ostringstream ss;
+	for(std::map<std::string, std::vector<IGradePtr> >::const_iterator itr = studentGrades.begin(); itr != studentGrades.end(); ++itr)
         {
                 std::string studentName = itr->first;
-		std::cout << "\nName: " << studentName << std::endl;
+		ss << "\nName: " << studentName << std::endl;
 		const std::vector<IGradePtr> allGrades = itr->second;
 		for(std::vector<IGradePtr>::const_iterator itr = allGrades.begin(); itr != allGrades.end(); ++itr)
 		{
 			IGradePtr grade = *itr;
-			std::cout << "\nScore: " << grade->getScore() ; 
+			ss << "\nScore: " << grade->getScore() ; 
 		}
         }
+        return std::string(ss.str());
 }
 		
-const std::vector<IGradePtr> StudentGradesManager::getGrades(std::string studentName) const
+const std::vector<IGradePtr> StudentGradesManager::getGrades(const std::string& studentName) const
 {
 	std::vector<IGradePtr> grades ;
 	std::map<std::string, std::vector<IGradePtr> >::const_iterator itr = studentGrades.find(studentName);
@@ -104,7 +106,7 @@ const std::vector<IGradePtr> StudentGradesManager::getGrades(std::string student
 	return grades;
 }
 
-const std::vector<IGradePtr> StudentGradesManager::getExams(std::string studentName) const
+const std::vector<IGradePtr> StudentGradesManager::getExams(const std::string& studentName) const
 {
 	std::vector<IGradePtr> grades = getGrades(studentName);
 	std::vector<IGradePtr> exams ;
@@ -120,7 +122,7 @@ const std::vector<IGradePtr> StudentGradesManager::getExams(std::string studentN
 	return exams;
 }
 
-const std::vector<IGradePtr> StudentGradesManager::getAssignments(std::string studentName) const
+const std::vector<IGradePtr> StudentGradesManager::getAssignments(const std::string& studentName) const
 {
 	std::vector<IGradePtr> grades = getGrades(studentName);
         std::vector<IGradePtr> assignments ;
@@ -136,7 +138,7 @@ const std::vector<IGradePtr> StudentGradesManager::getAssignments(std::string st
         return assignments;
 }
 
-const std::vector<IGradePtr> StudentGradesManager::getOptionalAssignments(std::string studentName) const
+const std::vector<IGradePtr> StudentGradesManager::getOptionalAssignments(const std::string& studentName) const
 {
 	std::vector<IGradePtr> grades = getGrades(studentName);
         std::vector<IGradePtr> optionalAssigments ;
@@ -152,7 +154,7 @@ const std::vector<IGradePtr> StudentGradesManager::getOptionalAssignments(std::s
         return optionalAssigments;
 }
 		
-void StudentGradesManager::printGrades(std::string studentName) const
+void StudentGradesManager::printGrades(const std::string& studentName) const
 {
 	const std::vector<IGradePtr> grades = getGrades(studentName);
 	for(std::vector<IGradePtr>::const_iterator itr = grades.begin(); itr != grades.end(); ++itr)

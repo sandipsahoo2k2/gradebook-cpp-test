@@ -17,10 +17,10 @@ public :
 
 	const std::string& getName() const ;
 
-	friend bool operator==(StudentPtr student, std::string name)
+	friend bool operator==(StudentPtr student, const std::string& name)
 	{
 		bool match = false;
-		if(student->name == name)
+		if(student->getName() == name)
 		{
 			match = true;
 		}

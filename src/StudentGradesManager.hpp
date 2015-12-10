@@ -20,21 +20,21 @@ class StudentGradesManager
 		StudentGradesManager(StudentManager &studentManager);
 		~StudentGradesManager();
 
-		bool addGradeScore(std::string studentName, EGradeType gradeType, double score = 0) ;
+		bool addGradeScore(const std::string& studentName, EGradeType gradeType, double score = 0) ;
 
-		void removeGrades(std::string studentName);
+		void removeGrades(const std::string& studentName);
 		
-		void printString();
+		const std::string toString() const;
 		
-		const std::vector<IGradePtr> getGrades(std::string studentName) const;
+		const std::vector<IGradePtr> getGrades(const std::string& studentName) const;
 
-		const std::vector<IGradePtr> getOptionalAssignments(std::string studentName) const;
+		const std::vector<IGradePtr> getOptionalAssignments(const std::string& studentName) const;
 
-                const std::vector<IGradePtr> getAssignments(std::string studentName) const;
+                const std::vector<IGradePtr> getAssignments(const std::string& studentName) const;
 
-                const std::vector<IGradePtr> getExams(std::string studentName) const;
+                const std::vector<IGradePtr> getExams(const std::string& studentName) const;
 		
-		void printGrades(std::string studentName) const;
+		void printGrades(const std::string& studentName) const;
 
 };
 

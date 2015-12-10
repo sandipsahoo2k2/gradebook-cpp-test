@@ -15,7 +15,7 @@ GradeBook::~GradeBook()
 {
 }
 
-bool GradeBook::hasValidGrade(std::string forStudentName, std::string byTeacherName) const
+bool GradeBook::hasValidGrade(const std::string& forStudentName, const std::string& byTeacherName) const
 {
         bool canCalculateGrade = false;
 	AllocationPtr allocation = allocationManager.getAllocation(byTeacherName);
@@ -51,7 +51,7 @@ bool GradeBook::hasValidGrade(std::string forStudentName, std::string byTeacherN
         return canCalculateGrade;
 }
 
-bool GradeBook::ignoreAllocation(std::string forStudentName) const
+bool GradeBook::ignoreAllocation(const std::string& forStudentName) const
 {
 	bool ignoreAllocation = true;
 	StudentPtr student = studentManager.getStudent(forStudentName);
@@ -66,7 +66,7 @@ bool GradeBook::ignoreAllocation(std::string forStudentName) const
 	return ignoreAllocation;
 }
 
-double GradeBook::getGrade(std::string forStudentName, std::string byTeacherName) const
+double GradeBook::getGrade(const std::string& forStudentName, const std::string& byTeacherName) const
 {
 	double totalGrade = 0;
 	double totalGradeWithoutExam = 0;
