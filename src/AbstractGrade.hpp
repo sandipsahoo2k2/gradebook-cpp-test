@@ -1,26 +1,26 @@
-#include "ITest.hpp"
+#include "IGrade.hpp"
 #include "Types.hpp"
 #include <iostream>
 #include <sstream>
 #include <string>
 using namespace std;
 
-#ifndef _ABSTRACT_TEST_H_
-#define _ABSTRACT_TEST_H_
+#ifndef _ABSTRACT_GRADE_H_
+#define _ABSTRACT_GRADE_H_
 
-class AbstractTest : public ITest
+class AbstractGrade : public IGrade
 {
 protected :
 	int id;
 	double score;
-	ETestType type; 
+	EGradeType type; 
 	int optional;
 public :
-	AbstractTest(double score);
+	AbstractGrade(double score);
 
-	virtual ~AbstractTest() = 0;
+	virtual ~AbstractGrade() = 0;
 
-	virtual ETestType getType() const;
+	virtual EGradeType getType() const;
 
 	virtual void setId(int id);
 

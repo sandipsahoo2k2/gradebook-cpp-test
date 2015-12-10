@@ -6,8 +6,8 @@
 #include "GradeBook.hpp"
 using namespace std;
 
-GradeBook::GradeBook(AllocationManager &allocationManager, StudentManager &studentManager, StudentTestsManager &studentTestsManager)
-		:studentManager(studentManager), studentTestsManager(studentTestsManager), allocationManager(allocationManager)
+GradeBook::GradeBook(AllocationManager &allocationManager, StudentManager &studentManager, StudentGradesManager &studentGradesManager)
+		:studentManager(studentManager), studentGradesManager(studentGradesManager), allocationManager(allocationManager)
 {
 }
 
@@ -27,7 +27,7 @@ bool GradeBook::hasValidGrade(std::string forStudentName, std::string byTeacherN
         StudentPtr student = studentManager.getStudent(forStudentName);
         if(student)
         {
-		const std::vector<ITestPtr> exams = studentTestsManager.getExams(forStudentName);
+		const std::vector<IGradePtr> exams = studentGradesManager.getExams(forStudentName);
                 if(exams.size() > 0)
 		{
 			if(!allocation)
@@ -57,7 +57,7 @@ bool GradeBook::ignoreAllocation(std::string forStudentName) const
 	StudentPtr student = studentManager.getStudent(forStudentName);
 	if(student)
 	 {
-		const std::vector<ITestPtr> exams = studentTestsManager.getExams(forStudentName);
+		const std::vector<IGradePtr> exams = studentGradesManager.getExams(forStudentName);
 		if(exams.size() > 0)
 		{
 			ignoreAllocation = false;
@@ -74,10 +74,10 @@ double GradeBook::getGrade(std::string forStudentName, std::string byTeacherName
 	if(student)
 	{
 
-		const std::vector<ITestPtr> assignments = studentTestsManager.getAssignments(forStudentName);
+		const std::vector<IGradePtr> assignments = studentGradesManager.getAssignments(forStudentName);
 		double totalAssignmentAverage = calculateAverage(assignments);
 
-		const std::vector<ITestPtr> optionalAssignments = studentTestsManager.getOptionalAssignments(forStudentName);
+		const std::vector<IGradePtr> optionalAssignments = studentGradesManager.getOptionalAssignments(forStudentName);
 		double totalOptionalAssignment = optionalAssignments.size();
 
 		totalGradeWithoutExam = totalAssignmentAverage;
@@ -88,7 +88,7 @@ double GradeBook::getGrade(std::string forStudentName, std::string byTeacherName
 		}
 		totalGrade = totalGradeWithoutExam;
 
-		const std::vector<ITestPtr> exams = studentTestsManager.getExams(forStudentName);
+		const std::vector<IGradePtr> exams = studentGradesManager.getExams(forStudentName);
 		if(exams.size() > 0)
 		{
 			double totalExamAverage = calculateAverage(exams);
@@ -112,84 +112,26 @@ double GradeBook::getGrade(std::string forStudentName, std::string byTeacherName
 	return totalGrade;
 }
 
-/* if we want to save memory and optimise the code use this function instead */
-bool GradeBook::calculateGrade(const std::vector<ITestPtr>& allTests, AllocationPtr allocation) const
-{
-        double totalGrade = 0 ;
-
-	double totalGradeForExam = 0;
-	double totalGradeForAssignment = 0;
-	double totalGradeForOptionalAssignment = 0;
-		
-	int examCounter = 0;
-	int assignmentCounter = 0;
-	int optionalAssignmentCounter = 0;
-
-        for(std::vector<ITestPtr>::const_iterator itr = allTests.begin(); itr != allTests.end(); ++itr)
-        {
-		ITestPtr singleTest = *itr;
-		ETestType testType = singleTest->getType() ;
-                if(E_TEST_EXAM == testType)
-                {
-			examCounter ++;
-			totalGradeForExam += singleTest->getScore();
-                }
-		else if(E_TEST_ASSIGNMENT == testType)
-		{
-			assignmentCounter++;
-			totalGradeForAssignment += singleTest->getScore();
-		}
-		else if(E_TEST_OPTIONAL_ASSIGNMENT == testType)
-		{
-			optionalAssignmentCounter++;
-			totalGradeForOptionalAssignment += singleTest->getScore();
-		}
-        }
-	double totalGradeWithoutExam = 0;
-	if(assignmentCounter > 0 && allocation)
-	{
-		double totalAssignmentAverage = totalGradeForAssignment / assignmentCounter ; 
-		totalGradeWithoutExam = totalAssignmentAverage + allocation->getOptionalAssignmentAllocation() * optionalAssignmentCounter;
-	}
-
-	totalGrade = totalGradeWithoutExam;
-	if(examCounter > 0)
-	{
-			double totalExamAverage = totalGradeForExam / examCounter ;
-			if(allocation)
-			{
-				totalGrade = (allocation->getExamAllocation() * totalExamAverage + allocation->getAssignmentAllocation() * totalGradeWithoutExam) / 100 ;
-			}
-			else
-			{
-				totalGrade = 0;
-				std::cout << "Error !! Allocation cann not be null !!" << std::endl;
-			}
-	}
-	totalGrade = floorf(totalGrade * 100) / 100;
-        return totalGrade;
-}
-
-double GradeBook::calculateAverage(const std::vector<ITestPtr>& tests) const
+double GradeBook::calculateAverage(const std::vector<IGradePtr>& grades) const
 {
 	double total = 0;
 	double average = 0;
 
-	for(std::vector<ITestPtr>::const_iterator itr = tests.begin(); itr != tests.end(); ++itr)
+	for(std::vector<IGradePtr>::const_iterator itr = grades.begin(); itr != grades.end(); ++itr)
 	{
 		total += (*itr)->getScore();
 	}
-	if(tests.size() > 0)
+	if(grades.size() > 0)
 	{
-		average = total / tests.size();
+		average = total / grades.size();
 	}
 	return average;
 }
 
-double GradeBook::calculateTotal(const std::vector<ITestPtr>& tests) const
+double GradeBook::calculateTotal(const std::vector<IGradePtr>& grades) const
 {
         double total = 0;
-        for(std::vector<ITestPtr>::const_iterator itr = tests.begin(); itr != tests.end(); ++itr)
+        for(std::vector<IGradePtr>::const_iterator itr = grades.begin(); itr != grades.end(); ++itr)
         {
                 total += (*itr)->getScore();
         }

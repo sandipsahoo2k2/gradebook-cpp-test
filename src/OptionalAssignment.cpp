@@ -4,9 +4,9 @@
 #include <string>
 using namespace std;
 
-OptionalAssignment::OptionalAssignment(double score):AbstractTest(score)
+OptionalAssignment::OptionalAssignment(double score):AbstractGrade(score)
 {
-	type = E_TEST_OPTIONAL_ASSIGNMENT ;
+	type = E_OPTIONAL_ASSIGNMENT ;
 	optional = TRUE ;
 }
 

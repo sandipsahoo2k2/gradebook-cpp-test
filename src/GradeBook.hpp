@@ -1,7 +1,6 @@
-#include "ITest.hpp"
 #include "Student.hpp"
 #include "StudentManager.hpp"
-#include "StudentTestsManager.hpp"
+#include "StudentGradesManager.hpp"
 #include "AllocationManager.hpp"
 #include <iostream>
 #include <string>
@@ -16,18 +15,15 @@ class GradeBook
 {
 	private:
 		StudentManager &studentManager ;
-		StudentTestsManager &studentTestsManager;
+		StudentGradesManager &studentGradesManager;
 		AllocationManager &allocationManager;
 		
-		/* An optimised version */
-		bool calculateGrade(const std::vector<ITestPtr>& allTests, AllocationPtr allocation) const;
-		
-		double calculateTotal(const std::vector<ITestPtr>& tests) const;
+		double calculateTotal(const std::vector<IGradePtr>& grades) const;
 
-		double calculateAverage(const std::vector<ITestPtr>& tests) const;
+		double calculateAverage(const std::vector<IGradePtr>& grades) const;
 
 	public:
-		GradeBook(AllocationManager &allocationManager, StudentManager &studentManager, StudentTestsManager &studentTestsManager);
+		GradeBook(AllocationManager &allocationManager, StudentManager &studentManager, StudentGradesManager &studentGradesManager);
 
 		~GradeBook();
 

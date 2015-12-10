@@ -1,12 +1,11 @@
 #include "Assignment.hpp"
-#include "AbstractTest.hpp"
 #include <iostream>
 #include <sstream>
 #include <string>
 using namespace std;
 
-Assignment::Assignment(double score):AbstractTest(score)
+Assignment::Assignment(double score):AbstractGrade(score)
 {
-	type = E_TEST_ASSIGNMENT ;
+	type = E_ASSIGNMENT ;
 	optional = FALSE ;
 }

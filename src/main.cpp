@@ -1,6 +1,6 @@
 #include "AllocationManager.hpp"
 #include "StudentManager.hpp"
-#include "StudentTestsManager.hpp"
+#include "StudentGradesManager.hpp"
 #include "GradeBook.hpp"
 using namespace std;
 
@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
 	}
 
 	StudentManager studentManager;
-	StudentTestsManager studentTestsManager(studentManager);
-	GradeBook gradeBook(allocationManager, studentManager, studentTestsManager);
+	StudentGradesManager studentGradesManager(studentManager);
+	GradeBook gradeBook(allocationManager, studentManager, studentGradesManager);
 
 	std::cout << "Please enter the teacher name for grade calculation:";
         std::string teacherName;
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 			std::cout << "Please enter the score for Assignment: ";
 			double score;
 			std::cin >> score;
-			studentTestsManager.addTestScore(studentName, E_TEST_ASSIGNMENT, score);
+			studentGradesManager.addGradeScore(studentName, E_ASSIGNMENT, score);
 			std::cout << "Do you want to add more [Y|N]? ";
 			std::cin >> inputString;
 			calculateGrade(gradeBook, studentName, teacherName);
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
                         std::cin >> completed;
 			if(completed)
 			{
-				studentTestsManager.addTestScore(studentName, E_TEST_OPTIONAL_ASSIGNMENT);
+				studentGradesManager.addGradeScore(studentName, E_OPTIONAL_ASSIGNMENT);
 			}
                         std::cout << "Do you want to add more [Y|N]? ";
                         std::cin >> inputString;
@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
                         std::cout << "Please enter the score for Exam: ";
                         double score;
                         std::cin >> score;
-                        studentTestsManager.addTestScore(studentName, E_TEST_EXAM, score);
+                        studentGradesManager.addGradeScore(studentName, E_EXAM, score);
                         std::cout << "Do you want to add more [Y|N]? ";
                         std::cin >> inputString;
 			calculateGrade(gradeBook, studentName, teacherName);

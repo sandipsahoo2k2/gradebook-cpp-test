@@ -33,14 +33,14 @@ protected:
   {
 	StudentManager studentManager;
 	studentManager.addStudent("Sally");
-        StudentTestsManager studentTestsManager(studentManager);
-	studentTestsManager.addTestScore("Sally", E_TEST_EXAM, 80.1);
-	studentTestsManager.addTestScore("Sally", E_TEST_EXAM, 80.1);
+        StudentGradesManager studentGradesManager(studentManager);
+	studentGradesManager.addGradeScore("Sally", E_EXAM, 80.1);
+	studentGradesManager.addGradeScore("Sally", E_EXAM, 80.1);
 
         AllocationManager allocationManager;
         allocationManager.addAllocation("Grahm", 10, 90, 2);
 
-	GradeBook toBeTestedObject(allocationManager, studentManager, studentTestsManager);
+	GradeBook toBeTestedObject(allocationManager, studentManager, studentGradesManager);
 	CPPUNIT_ASSERT(toBeTestedObject.hasValidGrade("Sally", "Grahm") == true);
 	CPPUNIT_ASSERT(toBeTestedObject.hasValidGrade("Sally", "Greg") == false);
   }
@@ -49,14 +49,14 @@ protected:
   {
 	StudentManager studentManager;
 	studentManager.addStudent("Sally");
-        StudentTestsManager studentTestsManager(studentManager);
-	studentTestsManager.addTestScore("Sally", E_TEST_EXAM, 100);
-	studentTestsManager.addTestScore("Sally", E_TEST_EXAM, 100);
+        StudentGradesManager studentGradesManager(studentManager);
+	studentGradesManager.addGradeScore("Sally", E_EXAM, 100);
+	studentGradesManager.addGradeScore("Sally", E_EXAM, 100);
 
         AllocationManager allocationManager;
         allocationManager.addAllocation("Grahm", 10, 90, 2);
 
-	GradeBook toBeTestedObject(allocationManager, studentManager, studentTestsManager);
+	GradeBook toBeTestedObject(allocationManager, studentManager, studentGradesManager);
 	CPPUNIT_ASSERT(toBeTestedObject.getGrade("Sally", "Grahm") == 90);
   }
 
@@ -64,16 +64,16 @@ protected:
   {
 	StudentManager studentManager;
 	studentManager.addStudent("Sally");
-        StudentTestsManager studentTestsManager(studentManager);
-	studentTestsManager.addTestScore("Sally", E_TEST_ASSIGNMENT, 85);
-	studentTestsManager.addTestScore("Sally", E_TEST_ASSIGNMENT, 88);
-	studentTestsManager.addTestScore("Sally", E_TEST_OPTIONAL_ASSIGNMENT);
-	studentTestsManager.addTestScore("Sally", E_TEST_ASSIGNMENT, 92);
+        StudentGradesManager studentGradesManager(studentManager);
+	studentGradesManager.addGradeScore("Sally", E_ASSIGNMENT, 85);
+	studentGradesManager.addGradeScore("Sally", E_ASSIGNMENT, 88);
+	studentGradesManager.addGradeScore("Sally", E_OPTIONAL_ASSIGNMENT);
+	studentGradesManager.addGradeScore("Sally", E_ASSIGNMENT, 92);
 
         AllocationManager allocationManager;
         allocationManager.addAllocation("Tom", 10.1, 89.9, 2);
 
-	GradeBook toBeTestedObject(allocationManager, studentManager, studentTestsManager);
+	GradeBook toBeTestedObject(allocationManager, studentManager, studentGradesManager);
 	CPPUNIT_ASSERT(toBeTestedObject.getGrade("Sally", "Tom") == 90.33F);
   }
 
@@ -81,17 +81,17 @@ protected:
   {
         StudentManager studentManager;
         studentManager.addStudent("Sally");
-        StudentTestsManager studentTestsManager(studentManager);
-        studentTestsManager.addTestScore("Sally", E_TEST_ASSIGNMENT, 85);
-        studentTestsManager.addTestScore("Sally", E_TEST_ASSIGNMENT, 88);
-        studentTestsManager.addTestScore("Sally", E_TEST_OPTIONAL_ASSIGNMENT);
-        studentTestsManager.addTestScore("Sally", E_TEST_ASSIGNMENT, 92);
-	studentTestsManager.addTestScore("Sally", E_TEST_EXAM, 91);
+        StudentGradesManager studentGradesManager(studentManager);
+        studentGradesManager.addGradeScore("Sally", E_ASSIGNMENT, 85);
+        studentGradesManager.addGradeScore("Sally", E_ASSIGNMENT, 88);
+        studentGradesManager.addGradeScore("Sally", E_OPTIONAL_ASSIGNMENT);
+        studentGradesManager.addGradeScore("Sally", E_ASSIGNMENT, 92);
+	studentGradesManager.addGradeScore("Sally", E_EXAM, 91);
 
         AllocationManager allocationManager;
         allocationManager.addAllocation("Tom", 10.1, 89.9, 2);
 
-        GradeBook toBeTestedObject(allocationManager, studentManager, studentTestsManager);
+        GradeBook toBeTestedObject(allocationManager, studentManager, studentGradesManager);
         CPPUNIT_ASSERT(toBeTestedObject.getGrade("Sally", "Tom") == 90.93F);
   }
 

@@ -1,4 +1,4 @@
-#include "AbstractTest.hpp"
+#include "AbstractGrade.hpp"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -7,7 +7,7 @@ using namespace std;
 #ifndef _EXAM_H_
 #define _EXAM_H_
 
-class Exam : public AbstractTest
+class Exam : public AbstractGrade
 {
 public :
 	Exam(double score);

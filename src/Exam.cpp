@@ -1,13 +1,12 @@
 #include "Exam.hpp"
-#include "AbstractTest.hpp"
 #include <iostream>
 #include <sstream>
 #include <string>
 using namespace std;
 
-Exam::Exam(double score):AbstractTest(score)
+Exam::Exam(double score):AbstractGrade(score)
 {
-	type = E_TEST_EXAM ;
+	type = E_EXAM ;
 	optional = FALSE ;
 }
 
