@@ -33,3 +33,15 @@ void StudentManager::removeStudent(const std::string& name)
 	}
 }
 
+std::string StudentManager::toString() const
+{
+	std::ostringstream ss;
+	ss << "Printing student DB" << std::endl;
+	for(std::vector<StudentPtr>::const_iterator itr = students.begin(); itr != students.end(); ++itr)
+	{
+		ss << *(*itr);
+	}
+	ss << "\n\nEnd of student DB" << std::endl;
+	return std::string(ss.str());
+}
+

@@ -14,9 +14,10 @@ class StudentManager
 
 	public:
 		const std::vector<StudentPtr>& getStudents() const;
+		std::string toString() const;
 
 		StudentPtr getStudent(const std::string& name) const;
-	
+
 		void addStudent(const std::string& name) ;
 
 		void removeStudent(const std::string& name);

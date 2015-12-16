@@ -9,12 +9,12 @@ using namespace std;
 
 class IGrade
 {
-public :
-	virtual int getId() const = 0;
-	virtual void setId(int id) = 0;
-	virtual EGradeType getType() const = 0;
-	virtual int isOptional() const = 0;
-	virtual double getScore() const = 0;
+	public :
+		virtual int getId() const = 0;
+		virtual void setId(int id) = 0;
+		virtual EGradeType getType() const = 0;
+		virtual int isOptional() const = 0;
+		virtual double getScore() const = 0;
 };
 
 #endif

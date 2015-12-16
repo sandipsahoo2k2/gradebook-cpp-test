@@ -9,16 +9,16 @@ using namespace std;
 
 class Assignment : public AbstractGrade
 {
-public :
-	Assignment(double score);
-	~Assignment(){};
+	public :
+		Assignment(double score);
+		~Assignment(){};
 
-	friend ostream &operator<< (ostream &output, const Assignment &assignment)
-	{
-		output << "\nAssignment #: " << assignment.id ;
-		output << ", Score: " << assignment.score ;
-	        return output;
-	}
+		friend ostream &operator<< (ostream &output, const Assignment &assignment)
+		{
+			output << "\nAssignment #: " << assignment.id ;
+			output << ", Score: " << assignment.score ;
+			return output;
+		}
 };
 
 #endif

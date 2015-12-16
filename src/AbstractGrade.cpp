@@ -38,5 +38,5 @@ double AbstractGrade::getScore() const
 
 int AbstractGrade::isOptional() const
 {
-        return optional;
+	return optional;
 }

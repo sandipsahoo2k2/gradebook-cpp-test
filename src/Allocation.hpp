@@ -9,19 +9,27 @@ using namespace std;
 
 class Allocation
 {
-private :
-	double assignmentAllocation;
-	double examAllocation;
-	double optionalAssignmentAllocation; 
-public :
-	Allocation(double assignmentAllocation, double examAllocation, double optionalAssignmentAllocation);
-	~Allocation() {};
+	private :
+		double assignmentAllocation;
+		double examAllocation;
+		double optionalAssignmentAllocation; 
+	public :
+		Allocation(double assignmentAllocation, double examAllocation, double optionalAssignmentAllocation);
+		~Allocation() {};
 
-	double getAssignmentAllocation() const;
-	
-	double getExamAllocation() const;
+		double getAssignmentAllocation() const;
 
-	double getOptionalAssignmentAllocation() const;
+		double getExamAllocation() const;
+
+		double getOptionalAssignmentAllocation() const;
+
+		friend ostream &operator<< (ostream &output, const Allocation &allocation)
+		{
+			output << "\nAssignment: " << allocation.assignmentAllocation ;
+			output << "\nExam: " << allocation.examAllocation ;
+			output << "\nExtraCredit: " << allocation.optionalAssignmentAllocation ;
+			return output;
+		}
 };
 
 #endif

@@ -9,16 +9,16 @@ using namespace std;
 
 class OptionalAssignment : public AbstractGrade
 {
-public :
-	OptionalAssignment(double score);
-	virtual ~OptionalAssignment(){} ;
+	public :
+		OptionalAssignment(double score);
+		virtual ~OptionalAssignment(){} ;
 
-	friend ostream &operator<< (ostream &output, const OptionalAssignment &optionalAssignment)
-	{
-		output << "\nOptionalAssignment #: " << optionalAssignment.id ;
-		output << ", Score: " << optionalAssignment.score ;
-	        return output;
-	}
+		friend ostream &operator<< (ostream &output, const OptionalAssignment &optionalAssignment)
+		{
+			output << "\nOptionalAssignment #: " << optionalAssignment.id ;
+			output << ", Score: " << optionalAssignment.score ;
+			return output;
+		}
 };
 
 #endif

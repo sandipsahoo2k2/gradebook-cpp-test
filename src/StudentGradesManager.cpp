@@ -43,7 +43,7 @@ IGradePtr StudentGradesManager::create(EGradeType gradeType, double score)
 	return NULL;
 }
 
-bool StudentGradesManager::addGradeScore(const std::string& studentName, EGradeType gradeType, double score)
+bool StudentGradesManager::addStudentsGradeScore(const std::string& studentName, EGradeType gradeType, double score)
 {
 	bool success = false;
 	StudentPtr student =  studentManager.getStudent(studentName);
@@ -73,7 +73,7 @@ bool StudentGradesManager::addGradeScore(const std::string& studentName, EGradeT
 	return success;
 }
 
-void StudentGradesManager::removeGrades(const std::string& studentName)
+void StudentGradesManager::removeStudentsGrades(const std::string& studentName)
 {
 	studentGrades.erase(studentName);
 }
@@ -82,8 +82,8 @@ const std::string StudentGradesManager::toString() const
 {
 	std::ostringstream ss;
 	for(std::map<std::string, std::vector<IGradePtr> >::const_iterator itr = studentGrades.begin(); itr != studentGrades.end(); ++itr)
-        {
-                std::string studentName = itr->first;
+	{
+		std::string studentName = itr->first;
 		ss << "\nName: " << studentName << std::endl;
 		const std::vector<IGradePtr> allGrades = itr->second;
 		for(std::vector<IGradePtr>::const_iterator itr = allGrades.begin(); itr != allGrades.end(); ++itr)
@@ -91,74 +91,65 @@ const std::string StudentGradesManager::toString() const
 			IGradePtr grade = *itr;
 			ss << "\nScore: " << grade->getScore() ; 
 		}
-        }
-        return std::string(ss.str());
+	}
+	return std::string(ss.str());
 }
-		
-const std::vector<IGradePtr> StudentGradesManager::getGrades(const std::string& studentName) const
+
+const std::vector<IGradePtr> StudentGradesManager::getStudentsGrades(const std::string& studentName) const
 {
 	std::vector<IGradePtr> grades ;
 	std::map<std::string, std::vector<IGradePtr> >::const_iterator itr = studentGrades.find(studentName);
-        if(itr != studentGrades.end())
-        {
+	if(itr != studentGrades.end())
+	{
 		grades = itr->second;
 	}
 	return grades;
 }
 
-const std::vector<IGradePtr> StudentGradesManager::getExams(const std::string& studentName) const
+const std::vector<IGradePtr> StudentGradesManager::getStudentsExams(const std::string& studentName) const
 {
-	std::vector<IGradePtr> grades = getGrades(studentName);
+	std::vector<IGradePtr> grades = getStudentsGrades(studentName);
 	std::vector<IGradePtr> exams ;
 	for(std::vector<IGradePtr>::const_iterator itr = grades.begin(); itr != grades.end(); ++itr)
-        {
-                IGradePtr grade = *itr;
-                EGradeType gradeType = grade->getType() ;
-                if(E_EXAM == gradeType)
-                {
+	{
+		IGradePtr grade = *itr;
+		EGradeType gradeType = grade->getType() ;
+		if(E_EXAM == gradeType)
+		{
 			exams.push_back(grade);
-                }
-        }
+		}
+	}
 	return exams;
 }
 
-const std::vector<IGradePtr> StudentGradesManager::getAssignments(const std::string& studentName) const
+const std::vector<IGradePtr> StudentGradesManager::getStudentsAssignments(const std::string& studentName) const
 {
-	std::vector<IGradePtr> grades = getGrades(studentName);
-        std::vector<IGradePtr> assignments ;
-        for(std::vector<IGradePtr>::const_iterator itr = grades.begin(); itr != grades.end(); ++itr)
-        {
-                IGradePtr grade = *itr;
-                EGradeType gradeType = grade->getType() ;
-                if(E_ASSIGNMENT == gradeType)
-                {
-                        assignments.push_back(grade);
-                }
-        }
-        return assignments;
-}
-
-const std::vector<IGradePtr> StudentGradesManager::getOptionalAssignments(const std::string& studentName) const
-{
-	std::vector<IGradePtr> grades = getGrades(studentName);
-        std::vector<IGradePtr> optionalAssigments ;
-        for(std::vector<IGradePtr>::const_iterator itr = grades.begin(); itr != grades.end(); ++itr)
-        {
-                IGradePtr grade = *itr;
-                EGradeType gradeType = grade->getType() ;
-                if(E_OPTIONAL_ASSIGNMENT == gradeType)
-                {
-                        optionalAssigments.push_back(grade);
-                }
-        }
-        return optionalAssigments;
-}
-		
-void StudentGradesManager::printGrades(const std::string& studentName) const
-{
-	const std::vector<IGradePtr> grades = getGrades(studentName);
+	std::vector<IGradePtr> grades = getStudentsGrades(studentName);
+	std::vector<IGradePtr> assignments ;
 	for(std::vector<IGradePtr>::const_iterator itr = grades.begin(); itr != grades.end(); ++itr)
 	{
-		std::cout << (*itr);
+		IGradePtr grade = *itr;
+		EGradeType gradeType = grade->getType() ;
+		if(E_ASSIGNMENT == gradeType)
+		{
+			assignments.push_back(grade);
+		}
 	}
+	return assignments;
+}
+
+const std::vector<IGradePtr> StudentGradesManager::getStudentsOptionalAssignments(const std::string& studentName) const
+{
+	std::vector<IGradePtr> grades = getStudentsGrades(studentName);
+	std::vector<IGradePtr> optionalAssigments ;
+	for(std::vector<IGradePtr>::const_iterator itr = grades.begin(); itr != grades.end(); ++itr)
+	{
+		IGradePtr grade = *itr;
+		EGradeType gradeType = grade->getType() ;
+		if(E_OPTIONAL_ASSIGNMENT == gradeType)
+		{
+			optionalAssigments.push_back(grade);
+		}
+	}
+	return optionalAssigments;
 }

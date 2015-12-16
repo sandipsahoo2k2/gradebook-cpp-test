@@ -15,7 +15,7 @@ enum EGradeType {
 	E_EXAM = 1,
 	E_ASSIGNMENT = 2,
 	E_OPTIONAL_ASSIGNMENT = 3
-	};
+};
 
 const int TRUE = 1;
 const int FALSE = 0;

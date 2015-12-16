@@ -9,29 +9,29 @@ using namespace std;
 
 class Student
 {
-private :
-	std::string name;
-public :
-	Student(std::string name);
-	~Student() {};
+	private :
+		std::string name;
+	public :
+		Student(std::string name);
+		~Student() {};
 
-	const std::string& getName() const ;
+		const std::string& getName() const ;
 
-	friend bool operator==(StudentPtr student, const std::string& name)
-	{
-		bool match = false;
-		if(student->getName() == name)
+		friend bool operator==(StudentPtr student, const std::string& name)
 		{
-			match = true;
+			bool match = false;
+			if(student->getName() == name)
+			{
+				match = true;
+			}
+			return match;
 		}
-		return match;
-	}
 
-	friend ostream &operator<< (ostream &output, const Student &student)
-	{
-		output << "\nName: " << student.name ;
-	        return output;
-	}
+		friend ostream &operator<< (ostream &output, const Student &student)
+		{
+			output << "\nName: " << student.name ;
+			return output;
+		}
 };
 
 

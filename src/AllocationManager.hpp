@@ -20,11 +20,11 @@ class AllocationManager
 		void addAllocation(const std::string& teacherName, double assignmentAllocation, double examAllocation, double optionalAssignmentAllocation) ;
 
 		void removeAllocation(const std::string& teacherName);
-		
+
 		std::string toString() const;
-		
+
 		AllocationPtr getAllocation(const std::string& tecaherName) const;
-		
+
 		const std::map<std::string, AllocationPtr>& getAllocations() const
 		{
 			return allocations;

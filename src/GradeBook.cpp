@@ -7,7 +7,7 @@
 using namespace std;
 
 GradeBook::GradeBook(AllocationManager &allocationManager, StudentManager &studentManager, StudentGradesManager &studentGradesManager)
-		:studentManager(studentManager), studentGradesManager(studentGradesManager), allocationManager(allocationManager)
+	:studentManager(studentManager), studentGradesManager(studentGradesManager), allocationManager(allocationManager)
 {
 }
 
@@ -15,20 +15,20 @@ GradeBook::~GradeBook()
 {
 }
 
-bool GradeBook::hasValidGrade(const std::string& forStudentName, const std::string& byTeacherName) const
+bool GradeBook::checkIfStudentHasValidGrade(const std::string& forStudentName, const std::string& byTeacherName) const
 {
-        bool canCalculateGrade = false;
+	bool canCalculateGrade = false;
 	AllocationPtr allocation = allocationManager.getAllocation(byTeacherName);
 	if(allocation)
 	{
 		canCalculateGrade = true;
 	}
 
-        StudentPtr student = studentManager.getStudent(forStudentName);
-        if(student)
-        {
-		const std::vector<IGradePtr> exams = studentGradesManager.getExams(forStudentName);
-                if(exams.size() > 0)
+	StudentPtr student = studentManager.getStudent(forStudentName);
+	if(student)
+	{
+		const std::vector<IGradePtr> exams = studentGradesManager.getStudentsExams(forStudentName);
+		if(exams.size() > 0)
 		{
 			if(!allocation)
 			{
@@ -43,21 +43,21 @@ bool GradeBook::hasValidGrade(const std::string& forStudentName, const std::stri
 		{
 			canCalculateGrade = true;
 		}
-        }
+	}
 	else
 	{
 		canCalculateGrade = false;
 	}
-        return canCalculateGrade;
+	return canCalculateGrade;
 }
 
-bool GradeBook::ignoreAllocation(const std::string& forStudentName) const
+bool GradeBook::isIgnoreAllocationForStudent(const std::string& forStudentName) const
 {
 	bool ignoreAllocation = true;
 	StudentPtr student = studentManager.getStudent(forStudentName);
 	if(student)
-	 {
-		const std::vector<IGradePtr> exams = studentGradesManager.getExams(forStudentName);
+	{
+		const std::vector<IGradePtr> exams = studentGradesManager.getStudentsExams(forStudentName);
 		if(exams.size() > 0)
 		{
 			ignoreAllocation = false;
@@ -66,7 +66,7 @@ bool GradeBook::ignoreAllocation(const std::string& forStudentName) const
 	return ignoreAllocation;
 }
 
-double GradeBook::getGrade(const std::string& forStudentName, const std::string& byTeacherName) const
+double GradeBook::getFinalGradeForStudentByTeacher(const std::string& forStudentName, const std::string& byTeacherName) const
 {
 	double totalGrade = 0;
 	double totalGradeWithoutExam = 0;
@@ -74,10 +74,10 @@ double GradeBook::getGrade(const std::string& forStudentName, const std::string&
 	if(student)
 	{
 
-		const std::vector<IGradePtr> assignments = studentGradesManager.getAssignments(forStudentName);
+		const std::vector<IGradePtr> assignments = studentGradesManager.getStudentsAssignments(forStudentName);
 		double totalAssignmentAverage = calculateAverage(assignments);
 
-		const std::vector<IGradePtr> optionalAssignments = studentGradesManager.getOptionalAssignments(forStudentName);
+		const std::vector<IGradePtr> optionalAssignments = studentGradesManager.getStudentsOptionalAssignments(forStudentName);
 		double totalOptionalAssignment = optionalAssignments.size();
 
 		totalGradeWithoutExam = totalAssignmentAverage;
@@ -88,7 +88,7 @@ double GradeBook::getGrade(const std::string& forStudentName, const std::string&
 		}
 		totalGrade = totalGradeWithoutExam;
 
-		const std::vector<IGradePtr> exams = studentGradesManager.getExams(forStudentName);
+		const std::vector<IGradePtr> exams = studentGradesManager.getStudentsExams(forStudentName);
 		if(exams.size() > 0)
 		{
 			double totalExamAverage = calculateAverage(exams);
@@ -130,10 +130,10 @@ double GradeBook::calculateAverage(const std::vector<IGradePtr>& grades) const
 
 double GradeBook::calculateTotal(const std::vector<IGradePtr>& grades) const
 {
-        double total = 0;
-        for(std::vector<IGradePtr>::const_iterator itr = grades.begin(); itr != grades.end(); ++itr)
-        {
-                total += (*itr)->getScore();
-        }
-        return total;
+	double total = 0;
+	for(std::vector<IGradePtr>::const_iterator itr = grades.begin(); itr != grades.end(); ++itr)
+	{
+		total += (*itr)->getScore();
+	}
+	return total;
 }

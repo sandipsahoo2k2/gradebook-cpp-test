@@ -10,25 +10,25 @@ using namespace std;
 
 class AbstractGrade : public IGrade
 {
-protected :
-	int id;
-	double score;
-	EGradeType type; 
-	int optional;
-public :
-	AbstractGrade(double score);
+	protected :
+		int id;
+		double score;
+		EGradeType type; 
+		int optional;
+	public :
+		AbstractGrade(double score);
 
-	virtual ~AbstractGrade() = 0;
+		virtual ~AbstractGrade() = 0;
 
-	virtual EGradeType getType() const;
+		virtual EGradeType getType() const;
 
-	virtual void setId(int id);
+		virtual void setId(int id);
 
-	virtual int getId() const;
+		virtual int getId() const;
 
-	virtual double getScore() const;
-	
-	virtual int isOptional() const;
+		virtual double getScore() const;
+
+		virtual int isOptional() const;
 };
 
 #endif

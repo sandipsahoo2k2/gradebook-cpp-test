@@ -23,11 +23,12 @@ void AllocationManager::removeAllocation(const std::string& teacherName)
 std::string AllocationManager::toString() const
 {
 	std::ostringstream ss;
-	ss << "\nPrinitng Allocations for all teachers" << std::endl;
+	ss << "\nPrinitng Allocations DB" << std::endl;
 	for(std::map<std::string, AllocationPtr>::const_iterator itr = allocations.begin(); itr != allocations.end(); ++itr)
 	{
-		ss << "\nAllocation for " << itr->first << " is " << itr->second << std::endl;
+		ss << "\nAllocation for " << itr->first << " is " << *(itr->second) << std::endl;
 	}
+	ss << "\n\nEnd of Allocations DB" << std::endl;
 	return std::string(ss.str());
 }
 

@@ -17,7 +17,7 @@ class GradeBook
 		StudentManager &studentManager ;
 		StudentGradesManager &studentGradesManager;
 		AllocationManager &allocationManager;
-		
+
 		double calculateTotal(const std::vector<IGradePtr>& grades) const;
 
 		double calculateAverage(const std::vector<IGradePtr>& grades) const;
@@ -27,11 +27,11 @@ class GradeBook
 
 		~GradeBook();
 
-		bool hasValidGrade(const std::string& forStudentName, const std::string& byTeacherName) const;
+		bool checkIfStudentHasValidGrade(const std::string& forStudentName, const std::string& byTeacherName) const;
 
-		bool ignoreAllocation(const std::string& forStudentName) const;
+		bool isIgnoreAllocationForStudent(const std::string& forStudentName) const;
 
-		double getGrade(const std::string& forStudentName, const std::string& byTeacherName) const;
+		double getFinalGradeForStudentByTeacher(const std::string& forStudentName, const std::string& byTeacherName) const;
 };
 
 #endif
